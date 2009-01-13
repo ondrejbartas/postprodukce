@@ -29,7 +29,15 @@ namespace :deploy do
   end
 end
 
-desc "Copy configuration files to shared"
+ desc "Copy configuration files to shared"
  task :copy_configs_to_shared, :roles => :app do
-   put(File.read('config/database.yml'), "#{shared_path}/database.yml", :mode => 0644)
-end
+   put(File.read('config/database.yml'), "#{shared_path}/config/database.yml", :mode => 0644)
+ end
+ 
+ desc "Symlink configuration files"
+ task :symlink_configuration_files, :roles => :app do
+   run "mkdir -p #{shared_path}/config"
+   shared_configs.each do |name|
+     run "ln -nsf #{deploy_to}/#{shared_dir}/config/#{name} #{current_path}/config/#{name}"
+ end
+ end
