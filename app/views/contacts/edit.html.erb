@@ -1,0 +1,9 @@
+<% form_for(@contact) do |f| %>
+
+  <%= render :partial => 'contacts/form' %>
+
+<p>
+    <%= f.submit "upravit" %>
+    <%= f.hidden_field :user_id %>
+</p>
+<% end %>

@@ -1,0 +1,135 @@
+<%= print_field( @user.name, "uživatel: ", "h2") %>
+ <div class="menu_small">
+  <%= link_to 'zpět', users_path %>
+  <%= link_to 'přidat kontakt', new_user_contact_path(@user)  %>
+  <%= link_to 'upravit', edit_user_path(@user) %>
+ </div>
+
+ Práva uživatele: <% for role in Role.find(:all)  %>
+
+    <%  if !@user.blank? && @user.role % role.idd == 0  %>
+     <%= role.comment.downcase %>,
+    <% end %>
+<% end %>
+
+
+ <h2>Kontakty</h2>
+<% for contact in @user.contacts.sort_by {|u| u.name.downcase} %>
+    <% if contact.deleted.blank? %>
+      <h3><%= contact.name %></h3>
+      <% if @current_user.mine?(contact) || @current_user.admin? || @current_user.produce? %>
+        <div class="menu_small">
+           <%= link_to 'upravit', edit_user_contact_path(@user, contact) %> |
+           <%= link_to 'smazat', user_contact_path(@user, contact), :confirm => 'Jste si opravdu jisti ke smazani '+contact.name+' kontakt?', :method => :delete %>
+        </div>
+      <% end %>
+      <table>
+        <tr><td>telefon: </td><td><%= contact.phone %></td></tr>
+        <tr><td>email: </td><td><%= mail_to contact.email %></td></tr>
+        <tr><td>adresa: </td><td class="top"><%= contact.address %></td></tr>
+        <tr><td>poznámka: </td><td><%= contact.note %></td></tr>
+        <td>
+      </table>
+    <% end %>
+<% end %>
+
+
+
+     <% if @user.client? %>
+
+         <h2>Projekty klienta</h2>
+
+        <% if @current_user.admin? || @current_user.produce? %>
+            <div class="menu_small">
+                <%= link_to 'přidat projekt', new_user_project_path(@user)  %>
+            </div>
+        <% end %>
+
+
+        <% for proj in @user.projects %>
+        <h3>Projekt: <%=h proj.name %></h3>
+        <div class="menu_small">
+            <%= link_to 'upravit projekt', edit_project_path(proj) %>
+            <%= link_to 'smazat', project_path(proj), :confirm => 'Jste si opravdu jisti ke smazani '+proj.name+' projektu?', :method => :delete %>
+        </div>
+        <table>
+            <tr><td>vytvořen: </td><td><strong>  <%=h proj.creationDate %></strong></td></tr>
+            <tr><td>Deadline: </td><td><strong><%=h proj.finishDate %></strong></td></tr>
+            <tr><td>poznámka: </td><td><strong>
+                <%=h proj.note %>
+            </strong></td></tr>
+            <tr><td>Stav: </td><td><strong><%=h proj.status %></strong></td></tr>
+        </table>
+
+
+        <h3>Jobs</h3>
+
+      <div class="menu_small">
+        <%= link_to 'New work', new_work_path %>
+      </div>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>projekt</th>
+          <th>pracovnik</th>
+          <th>typ prace</th>
+          <th>pracoviště</th>
+          <th>Status</th>
+          <th>Startdate</th>
+          <th>Enddate</th>
+        </tr>
+
+      <% for work in proj.works %>
+        <tr>
+          <td><%= link_to  work.name, work %></td>
+          <td><%=h work.project.blank? ? "" : work.project.name %></td>
+          <td><%=h work.user.blank? ? "" : work.user.name %></td>
+          <td><%=h work.job_type.blank? ? "" : work.job_type.name %></td>
+          <td><%=h work.place.blank? ? "" : work.place.name %></td>
+          <td><%=h work.status %></td>
+          <td><%=h work.startDate %></td>
+          <td><%=h work.endDate %></td>
+        </tr>
+      <% end %>
+      </table>
+
+
+        <h3>Source information &amp; media</h3>
+        <div><a href="">documentation.pdf</a>, <a href="">video.iso</a></div>
+
+    <% end %>
+  <% end %>
+
+  <% if @user.worker? %>
+        <h2>Jobs</h2>
+
+      <div class="menu_small">
+        <%= link_to 'New work', new_work_path %>
+      </div>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>projekt</th>
+          <th>pracovnik</th>
+          <th>typ prace</th>
+          <th>pracoviště</th>
+          <th>Status</th>
+          <th>Startdate</th>
+          <th>Enddate</th>
+        </tr>
+
+      <% for work in @user.works %>
+        <tr>
+          <td><%= link_to  work.name, work %></td>
+          <td><%=h work.project.blank? ? "" : work.project.name %></td>
+          <td><%=h work.user.blank? ? "" : work.user.name %></td>
+          <td><%=h work.job_type.blank? ? "" : work.job_type.name %></td>
+          <td><%=h work.place.blank? ? "" : work.place.name %></td>
+          <td><%=h work.status %></td>
+          <td><%=h work.startDate %></td>
+          <td><%=h work.endDate %></td>
+        </tr>
+      <% end %>
+      </table>
+  <% end %>
+

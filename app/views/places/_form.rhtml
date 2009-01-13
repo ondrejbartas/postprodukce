@@ -1,0 +1,18 @@
+<%= error_messages_for :place  %>
+<p>
+    <%= label :place, 'name', 'název místa', :required => true %><br />
+    <%= text_field :place, :name %>
+</p>
+  <p>
+     <%= label :place, 'note', 'poznámka', :required => false %><br />
+     <%= text_field :place, :note %>
+  </p>
+  <p>
+     <%= label :place, 'startDate', 'datum od kdy je možné místo využít', :required => false %><br />
+    <%= datetime_select :place, :startDate %>
+  </p>
+  <p>
+     <%= label :place, 'endDate', 'datum do kdy se místo může využívat', :required => false %><br />
+   
+        <%= datetime_select :place, :endDate, :default => 10.years.from_now %>
+   </p>

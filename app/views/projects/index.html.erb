@@ -1,0 +1,30 @@
+<h2>Seznam projektů</h2>
+<div class="menu_small">
+  <%= link_to 'vytvořit nový projekt', new_project_path %>
+</div>
+<table>
+  <tr>
+    <th>projekt</th>
+    <th>klient</th>
+    <th>stav</th>
+    <th>poznámka</th>
+    <th>vytvořeno</th>
+    <th>deadline</th>
+ </tr>
+
+<% for project in @projects %>
+  <tr>
+    <td><%= link_to project.name, project %></td>
+    <td><% usr = User.find_by_id(project.user_id) %>
+        <%= link_to usr.name, user_path(usr) %>
+    </td>
+    <td><%=h project.status %></td>
+    <td><%=h project.note %></td>
+    <td><%=h project.creationDate %></td>
+    <td><%=h project.finishDate %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+

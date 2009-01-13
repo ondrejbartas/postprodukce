@@ -1,0 +1,12 @@
+<h1>Upraveni prace</h1>
+
+<% form_for(@work) do |f| %>
+  <%= f.error_messages %>
+
+
+  <%= render :partial => 'works/form' %>
+
+  <p>
+    <%= f.submit "upravit" %>
+  </p>
+<% end %>

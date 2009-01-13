@@ -1,0 +1,12 @@
+<h1>nová práce</h1>
+
+<% form_for(@work) do |f| %>
+  <%= f.error_messages %>
+
+
+  <%= render :partial => 'works/form' %>
+
+  <p>
+    <%= f.submit "vytvořit" %>
+  </p>
+<% end %>

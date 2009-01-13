@@ -1,0 +1,40 @@
+<%= error_messages_for :work  %>
+
+<% if @activeRole == "admin" || @activeRole == "produce" %>
+  <p>
+    <%= label :work, 'user_id', 'uživatel', :required => true %><br />
+    <%= collection_select(:work, :user_id, @users, :id, :name, :include_blank => true) %>
+  </p>
+<% else %>
+  <p>
+    <strong>Uživatel:</strong><br />
+    <%=h current_user.name %>
+    <%= hidden_field :work, :user_id, :value=>current_user.id %>
+  </p>
+<% end %>
+
+  <p>
+    <%= label :work, 'project_id', 'projekt', :required => true %><br />
+    <%= collection_select(:work, :project_id, @projects, :id, :name, :include_blank => false) %>
+  </p>
+  <p>
+    <%= label :work, 'job_type_id', 'typ prace', :required => true %><br />
+    <%= collection_select(:work, :job_type_id, @job_types, :id, :name, :include_blank => false) %>
+  </p>
+  <p>
+    <%= label :work, 'place_id', 'pracoviste', :required => true %><br />
+    <%= collection_select(:work, :place_id, @places, :id, :name, :include_blank => true) %>
+  </p>
+  <p>
+     <%= label :work, 'note', 'poznámka', :required => false %><br />
+     <%= text_field :work, :note %>
+  </p>
+  <p>
+     <%= label :work, 'startDate', 'datum od', :required => false %><br />
+    <%= datetime_select :work, :startDate %>
+  </p>
+  <p>
+     <%= label :work, 'endDate', 'datum do', :required => false %><br />
+    <%= datetime_select :work, :endDate %>
+  </p>
+

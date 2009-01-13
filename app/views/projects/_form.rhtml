@@ -1,0 +1,22 @@
+<%= error_messages_for :project  %>
+<p>
+  <%= label :project, 'name', 'jméno projektu', :required => true %><br />
+  <%= text_field :project, :name %>
+</p>
+<p>
+  <%= label :project, 'note', 'poznámka' %><br />
+  <%= text_area :project, :note, :cols=>30, :rows=>5 %>
+</p>
+<p>
+  <%= label :project, 'status', 'status' %><br />
+  <%= text_field :project, :status %>
+</p>
+
+<p>
+    <%= label :project, 'datum začátku projektu',:creationDate %><br />
+    <%= datetime_select :project, :creationDate %>
+</p>
+<p>
+    <%= label :project, 'datum ukončení projektu', :finishDate %><br />
+    <%= datetime_select :project, :finishDate %>
+</p>

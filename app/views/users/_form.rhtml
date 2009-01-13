@@ -1,0 +1,41 @@
+<%= error_messages_for :user  %>
+<p>
+    <%= label :user, 'name', 'jméno', :required => true %><br />
+    <%= text_field :user, :name %>
+</p>
+<p>
+    <%= label :user, 'login', 'přihlašovací jméno', :required => true %><br />
+    <%= text_field :user, :login %>
+</p>
+
+<p>
+    <%= label :user, 'password', 'pro vytvoření či změnu hesla', :required => true %><br />
+    <%= password_field :user, :password_new_comf, :value=> "" %>
+</p>
+
+<p>
+    <%= label :user, 'password_new', 'zadejte heslo podruhé', :required => true %><br />
+    <%= password_field :user, :password_new, :value=> "" %>
+</p>
+
+<p>
+
+  <% if @current_user.admin? %>
+    <%= label :user, 'role', 'vyberte role', :required => true %><br />
+
+    <% for role in Role.find(:all)  %>
+    
+    <%  if !@user.blank? && !@user.role.blank?  %>
+
+      <%  if !@user.blank? && @user.role % role.idd == 0  %>
+        <%= role.name  %>: <input type="checkbox" name="role<%= role.idd  %>" value="true" checked />
+      <% else %>
+        <%= role.name  %>: <input type="checkbox" name="role<%= role.idd  %>" value="true " />
+      <% end %>
+
+     <% else %>
+       <%= role.name  %>: <input type="checkbox" name="role<%= role.idd  %>" value="true " />
+    <% end %>
+   <% end %>
+  <% end %>
+</p>

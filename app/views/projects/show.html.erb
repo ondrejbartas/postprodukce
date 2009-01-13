@@ -1,0 +1,47 @@
+<h2>Projekt: <%=h @project.name %></h2>
+<div class="menu_in">
+    <%= link_to 'upravit projekt', edit_project_path(@project) %> |
+    <%= link_to 'zpět na seznam projektů', projects_path %>
+</div>
+<table>
+    <tr><td>vytvořen: </td><td><strong>  <%=h @project.creationDate %></strong></td></tr>
+    <tr><td>Deadline: </td><td><strong><%=h @project.finishDate %></strong></td></tr>
+    <tr><td>poznámka: </td><td><strong>
+        <%=h @project.note %>
+    </strong></td></tr>
+    <tr><td>Stav: </td><td><strong><%=h @project.status %></strong></td></tr>
+</table>
+<h3>Jobs</h3>
+    <div class="menu_small">
+        <%= link_to 'New work', new_work_path %>
+      </div>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>projekt</th>
+          <th>pracovnik</th>
+          <th>typ prace</th>
+          <th>pracoviště</th>
+          <th>Status</th>
+          <th>Startdate</th>
+          <th>Enddate</th>
+        </tr>
+
+      <% for work in @project.works %>
+        <tr>
+          <td><%= link_to  work.name, work %></td>
+          <td><%=h work.project.blank? ? "" : work.project.name %></td>
+          <td><%=h work.user.blank? ? "" : work.user.name %></td>
+          <td><%=h work.job_type.blank? ? "" : work.job_type.name %></td>
+          <td><%=h work.place.blank? ? "" : work.place.name %></td>
+          <td><%=h work.status %></td>
+          <td><%=h work.startDate %></td>
+          <td><%=h work.endDate %></td>
+        </tr>
+      <% end %>
+      </table>
+<h3>Source information &amp; media</h3>
+<div><a href="">documentation.pdf</a>, <a href="">video.iso</a></div>
+
+
+

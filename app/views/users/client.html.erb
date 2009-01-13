@@ -1,0 +1,20 @@
+<h2>Seznam klientů</h2>
+ <% if current_user.admin? || current_user.produce? %>
+   <div class="menu_in">
+      <%= link_to 'přidat nového uživatele', new_user_path %>
+   </div>
+<% end %>
+<div class="user_list">
+<% letter = "z" %>
+<% for user in @users %>
+      <% if letter.downcase != user.name[0,1].downcase %>
+        <%  letter = user.name[0,1] %>
+        <h3> <%=  letter.capitalize %></h3>
+      <% end %>
+
+
+      <div><%= link_to user.name, user %>
+      </div>
+<% end %>
+
+</div>

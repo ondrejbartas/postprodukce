@@ -1,0 +1,12 @@
+<h2>Nový kontakt pro uživatele: <%= @user.name %></h2>
+
+
+<% form_for(@contact) do |f| %>
+
+  <%= render :partial => 'contacts/form' %>
+
+<p>
+    <%= f.submit "přidat" %>
+    <%= f.hidden_field :user_id %>
+</p>
+<% end %>

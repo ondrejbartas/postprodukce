@@ -1,0 +1,20 @@
+<h2>Seznam typu pracovních činností</h2>
+
+<div class="menu_small">
+<%= link_to 'vytvořit nový typ pracovní činnosti', new_job_type_path %>
+</div>
+<table>
+  <tr>
+    <th>název</th>
+    <th>poznámka</th>
+  </tr>
+
+<% for job_type in @job_types %>
+  <tr>
+    <td><%= link_to job_type.name, job_type %></td>
+    <td><%=h job_type.note %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />

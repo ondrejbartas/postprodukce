@@ -1,0 +1,32 @@
+<h1>Listing works</h1>
+<div class="menu_small">
+  <%= link_to 'New work', new_work_path %>
+</div>
+<table>
+  <tr>
+    <th>zobrazit</th>
+    <th>projekt</th>
+    <th>pracovnik</th>
+    <th>typ prace</th>
+    <th>pracoviště</th>
+    <th>Status</th>
+    <th>Startdate</th>
+    <th>Enddate</th>
+  </tr>
+
+<% for work in @works %>
+  <tr>
+    <td><%= link_to  "zobrazit", work %></td>
+    <td><%=h work.project.blank? ? "" : work.project.name %></td>
+    <td><%=h work.user.blank? ? "" : work.user.name %></td>
+    <td><%=h work.job_type.blank? ? "" : work.job_type.name %></td>
+    <td><%=h work.place.blank? ? "" : work.place.name %></td>
+    <td><%=h work.status %></td>
+    <td><%=h work.startDate %></td>
+    <td><%=h work.endDate %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
