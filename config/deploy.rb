@@ -1,6 +1,7 @@
 set :application, "postprodukce"
 set :repository, "git@github.com:ondrejbartas/postprodukce.git"
 set :scm, "git"
+set :deploy_via, :copy
 
 role :web, "server3.railshosting.cz"
 role :app, "server3.railshosting.cz"
@@ -26,4 +27,9 @@ namespace :deploy do
   task :restart, :roles => :app do
     run "touch #{current_path}/tmp/restart.txt"
   end
+end
+
+desc "Copy configuration files to shared"
+ task :copy_configs_to_shared, :roles => :app do
+   put(File.read('config/database.yml'), "#{shared_path}/database.yml", :mode => 0644)
 end
