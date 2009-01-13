@@ -7,6 +7,8 @@ role :web, "server3.railshosting.cz"
 role :app, "server3.railshosting.cz"
 role :db,  "server3.railshosting.cz", :primary => true
 
+set :shared_configs, [ 'database.yml' ]
+
 set :deploy_to, "/home/postprodukce/app/"
 set :user, "postprodukce"
 
@@ -40,4 +42,8 @@ end
    shared_configs.each do |name|
      run "ln -nsf #{deploy_to}/#{shared_dir}/config/#{name} #{current_path}/config/#{name}"
  end
+
+ after 'deploy:symlink', 'symlink_configuration_files'
+
+
  end
